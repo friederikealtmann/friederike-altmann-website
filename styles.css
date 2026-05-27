@@ -299,27 +299,47 @@ footer .links a{font-size:.68rem;opacity:.7;letter-spacing:.22em;text-transform:
   .logo-strip{grid-template-columns:repeat(2,1fr)}
 }
 
-/* Mobile/Tablet (≤991px): Hero wächst natürlich, Portrait kommt zuerst und ist quadratisch */
+/* Tablet (768–991px): Portrait zuerst, quadratisch, zentriert mit max-width */
 @media (max-width:991px){
   .hero{
     min-height:0;
     max-height:none;
-    padding:1.5rem 0 2rem;
+    padding:1.5rem 0 2.5rem;
     display:block;
+    overflow:visible;
   }
-  .hero-grid{gap:1.6rem}
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:1.6rem;
+  }
   .hero-visual{
     order:-1;
-    aspect-ratio:1/1;       /* quadratisch */
+    aspect-ratio:1/1;
     max-height:none;
-    max-width:380px;
+    max-width:480px;
     margin:0 auto;
+    justify-self:center;
   }
 }
 
-/* Utility: Auf Mobile komplett ausblenden */
+/* Phone (≤767px): Portrait formatfüllend, edge-to-edge, quadratisch */
 @media (max-width:767px){
   .mobile-hide{display:none}
+
+  .hero{padding:0 0 2.2rem}
+  .hero .container{padding:0;max-width:none}
+  .hero-grid{gap:1.6rem}
+  .hero-visual{
+    max-width:none;
+    width:100%;
+    border-radius:0;
+    margin:0;
+    justify-self:stretch;
+  }
+  /* Text-Spalte bekommt Container-Padding zurück */
+  .hero-grid > div:not(.hero-visual){
+    padding:0 1.6rem;
+  }
 }
 
 /* ---------- Comprehensive Mobile Spacing Pass ---------- */
