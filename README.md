@@ -1,7 +1,9 @@
 # Friederike Altmann · Website
 
 Static site built with **Eleventy 3** + **Tina CMS** (Tina Cloud).
-Deployed on **Hetzner Webhosting** via GitHub Actions (FTPS).
+Deployed on **Cloudflare Pages** (kostenlos).
+
+**Domain** bei Hetzner registriert · DNS verweist auf Cloudflare Pages.
 
 ---
 
@@ -44,72 +46,60 @@ npm run dev
 - Tina Admin UI ist erreichbar unter `http://localhost:8080/admin/index.html`
 - Änderungen werden als Commits in deinem Git-Branch gespeichert
 
-### 5. Production Build & Deploy
+### 5. Production Build
 
 ```bash
 npm run build
 ```
 
-**GitHub Actions** macht das automatisch bei jedem Push auf `main`:
-1. `actions/checkout` holt den Code
-2. `npm ci` installiert Dependencies
-3. `npm run build` baut die statische Seite nach `_site/`
-4. `SamKirkland/FTP-Deploy-Action` lädt `_site/` via FTPS auf Hetzner
+→ baut nach `_site/`. Lokales Vorschauen mit `npx serve _site` (separater Schritt).
+
+**Cloudflare Pages** baut automatisch bei jedem Push auf `main` — kein lokaler Build nötig.
 
 ---
 
-## Hetzner-Deployment einrichten (einmalig)
+## Cloudflare Pages Deployment einrichten (einmalig)
 
-### A. FTP-Zugangsdaten aus dem Hetzner-Konsole bekommen
+### A. Cloudflare-Account anlegen (kostenlos)
 
-1. Bei [konsoleh.your-server.de](https://konsoleh.your-server.de) einloggen (Hetzner Webhosting-Verwaltung)
-2. Im linken Menü → **Domains & FTP** → **FTP-Zugänge**
-3. Entweder einen vorhandenen Zugang nutzen oder einen neuen anlegen
-4. Notieren:
-   - **FTP-Server** (z.B. `your-domain.de` oder `wp1.hosting.your-server.de`)
-   - **FTP-Benutzer** (z.B. `web123`)
-   - **FTP-Passwort**
-   - **FTP-Verzeichnis** (oft `/` oder `/public_html/` — der Webroot, wo die Seite landen soll)
+1. [dash.cloudflare.com/sign-up](https://dash.cloudflare.com/sign-up) öffnen
+2. Mit GitHub-Login registrieren (oder Email)
+3. Account-Type: **Free**
 
-### B. Diese 4 Werte als GitHub Secrets eintragen
+### B. Pages-Projekt mit GitHub-Repo verbinden
 
-1. Im GitHub-Repo (`lenapopenadesign/friederike-altmann-website`):
-   - **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-2. Folgende 4 Secrets anlegen (exakt diese Namen):
+1. Im Cloudflare Dashboard: **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
+2. **GitHub Account verbinden** → den Account `lenapopenadesign` autorisieren
+3. Repo wählen: `lenapopenadesign/friederike-altmann-website`
+4. **Set up builds and deployments**:
+   - Project name: `friederike-altmann` (wird Teil der URL: `friederike-altmann.pages.dev`)
+   - Production branch: `main`
+   - Framework preset: **None**
+   - Build command: `npm run build`
+   - Build output directory: `_site`
+   - Root directory: (leer lassen)
+   - Environment variables: (vorerst keine)
+5. **Save and Deploy** — Cloudflare buildet das erste Mal (~1–2 Min)
+6. URL erscheint: `https://friederike-altmann.pages.dev` → das ist die Live-URL
 
-| Secret-Name        | Wert                                     |
-|--------------------|------------------------------------------|
-| `FTP_HOST`         | Hetzner FTP-Server (Hostname)            |
-| `FTP_USERNAME`     | FTP-Benutzername                         |
-| `FTP_PASSWORD`     | FTP-Passwort                             |
-| `FTP_REMOTE_DIR`   | Zielverzeichnis auf dem Server (z.B. `/` oder `/public_html/`) |
+### C. Custom Domain (Friederikes echte Domain) verbinden
 
-### C. Deploy testen
+1. Im Pages-Projekt: **Custom domains** → **Set up a custom domain**
+2. Domain eintippen: `friederikealtmann.de`
+3. Cloudflare gibt dir DNS-Records, die du in **Hetzner DNS** eintragen musst:
+   - Entweder einen **CNAME** auf `friederike-altmann.pages.dev` für `www`
+   - UND für die Root-Domain (`friederikealtmann.de` ohne www) einen **A-Record** auf die Cloudflare-IP, die in der UI angezeigt wird
 
-Push einen kleinen Commit (z.B. README-Änderung) auf `main`. Im GitHub-Repo unter **Actions** siehst du den Build-Workflow live. Nach ~1–2 Min ist die Seite auf der Hetzner-Domain.
+4. Im **Hetzner Cloud Console** (oder konsoleH falls Domain dort verwaltet wird):
+   - **DNS** öffnen → die Domain bearbeiten → die Records hinzufügen
+5. Cloudflare wartet auf DNS-Propagation (1–30 Min), dann **SSL-Zertifikat wird automatisch erzeugt**
+6. Domain wird grün-tick in Cloudflare angezeigt → live
 
-### D. Wenn FTPS nicht klappt
+### D. Workflow danach
 
-Manche Hetzner-Webhosting-Tarife wollen Port 990 statt 21 für FTPS Implicit. In `.github/workflows/deploy.yml` den Port anpassen:
-
-```yaml
-port: 990
-protocol: ftps
-```
-
-Oder auf SFTP umschwenken (Port 22 — falls Hetzner SSH-Login erlaubt):
-
-```yaml
-protocol: sftp
-port: 22
-```
-
-Bei reinem FTP (unsicher, nur falls TLS/FTPS nicht geht):
-
-```yaml
-protocol: ftp
-port: 21
-```
+- Friederike editiert auf [app.tina.io](https://app.tina.io) → Tina committet auf GitHub
+- Cloudflare Pages **detected den Push automatisch** → buildet → deployed → live in ~1–2 Min
+- Du musst nichts manuell triggern
 
 ---
 
@@ -197,14 +187,18 @@ Sie braucht weder Git-Knowledge noch Code-Editor — alles läuft über die Tina
 **Eleventy-Build OK, aber Tina UI zeigt "Cannot connect":**
 → Tina Cloud Branch-Setting muss zum aktuellen Branch passen (`main`).
 
-**Vercel deployed die alte Site:**
-→ Vercel-Project kannst du im Dashboard löschen oder pausieren. Die GitHub-Action
-   übernimmt jetzt den Deploy direkt auf Hetzner.
+**Cloudflare Build schlägt fehl:**
+→ Im Pages-Dashboard → letzter Deploy → **View build log** → meist sieht man den Fehler.
+   Häufig: falsches Build-Command oder Node-Version. Build-Settings prüfen.
 
-**GitHub Action schlägt fehl mit FTP-Error:**
-→ FTP-Credentials in den GitHub Secrets prüfen. Manche Hetzner-Tarife brauchen
-   FTPS auf Port 990 statt 21 (siehe Hetzner-Setup oben, Abschnitt D).
+**Domain zeigt „Page not found":**
+→ DNS-Records in Hetzner prüfen — müssen genau auf den von Cloudflare angegebenen
+   Wert zeigen. DNS-Propagation kann bis zu 30 Min dauern.
 
-**Domain zeigt 404 oder leere Seite:**
-→ Im konsoleH prüfen welches Verzeichnis als Webroot konfiguriert ist.
-   `FTP_REMOTE_DIR` Secret entsprechend setzen.
+**Tina commits triggern keinen Build:**
+→ In Cloudflare Pages-Settings: **Production branch** muss `main` sein (oder
+   der Branch, in den Tina committet).
+
+**Alte Vercel-Deployments noch aktiv:**
+→ Im Vercel-Dashboard kannst du das Project löschen — Cloudflare Pages übernimmt
+   den Deploy jetzt vollständig.
