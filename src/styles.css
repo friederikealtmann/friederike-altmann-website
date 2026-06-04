@@ -811,10 +811,12 @@ section.legal h2:first-of-type{margin-top:0}
 section.legal h3{font-size:1.05rem;font-weight:700;letter-spacing:-.005em;margin:1.4rem 0 .5rem;color:var(--tinte)}
 section.legal p{color:var(--tinte);opacity:.85;font-size:.98rem;line-height:1.6;margin-bottom:1rem;max-width:none}
 section.legal ul{list-style:none;padding:0;margin:.4rem 0 1.2rem}
-section.legal li{padding:.3rem 0;font-size:.96rem;line-height:1.55;color:var(--tinte);opacity:.85;display:flex;gap:.6rem}
-section.legal li::before{content:"—";color:var(--safran);font-weight:700;flex-shrink:0}
+section.legal li{padding:.3rem 0;font-size:.96rem;line-height:1.55;color:var(--tinte);opacity:.85;display:flex;gap:.7rem;align-items:flex-start}
+section.legal li::before{content:"•";color:var(--safran);font-weight:700;flex-shrink:0;font-size:1.1em;line-height:1.4}
 section.legal a{color:var(--nachtflieder);text-decoration:underline;text-underline-offset:2px}
 section.legal a:hover{color:var(--tinte)}
+/* "Zurück zur Startseite"-Link nutzt eigenen border-bottom (.about-teaser-cta) — keine doppelte Unterstreichung */
+section.legal a.about-teaser-cta{text-decoration:none}
 .legal-note{padding:1rem 1.2rem;background:var(--flieder-50);border-left:3px solid var(--safran);margin-bottom:2.5rem!important;font-size:.92rem}
 .legal-back{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--bg-hairline)}
 @media (max-width:767px){
