@@ -22,11 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static site (with Tina schema)
+      - name: Build static site (with Tina schema, falls Tina Cloud konfiguriert)
         env:
           NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-        run: npm run build:with-tina
+        run: |
+          # Versuch zuerst Tina-Build (registriert Schema mit Tina Cloud)
+          # Falls Tina Cloud nicht konfiguriert ist, fall back auf reines Eleventy
+          npm run build:with-tina || {
+            echo "::warning::Tina Cloud build failed — falling back to Eleventy-only build"
+            npm run build
+          }
 
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
