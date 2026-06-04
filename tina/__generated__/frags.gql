@@ -1,0 +1,65 @@
+fragment SiteParts on Site {
+  __typename
+  name
+  subtitle
+  cta_label
+  contact {
+    __typename
+    email
+    phone
+    website
+    social
+    location
+  }
+}
+
+fragment TestimonialsParts on Testimonials {
+  __typename
+  items {
+    __typename
+    quote
+    name
+    role
+  }
+}
+
+fragment FaqParts on Faq {
+  __typename
+  items {
+    __typename
+    question
+    answer
+  }
+}
+
+fragment TopicsParts on Topics {
+  __typename
+  eyebrow
+  tags
+}
+
+fragment NavParts on Nav {
+  __typename
+  items {
+    __typename
+    label
+    url
+  }
+}
+
+fragment FooterParts on Footer {
+  __typename
+  links {
+    __typename
+    label
+    url
+  }
+}
+
+fragment PagesParts on Pages {
+  __typename
+  title
+  eyebrow
+  subtitle
+  body
+}

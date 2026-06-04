@@ -18,8 +18,14 @@ node_modules/
 # Eleventy build output
 _site/
 
-# Tina generated
-tina/__generated__/
+# Tina generated — keep schema/lookup so Tina Cloud can index from the repo
+tina/__generated__/*
+!tina/__generated__/_graphql.json
+!tina/__generated__/_lookup.json
+!tina/__generated__/_schema.json
+!tina/__generated__/schema.gql
+!tina/__generated__/frags.gql
+!tina/__generated__/queries.gql
 admin/
 
 # Environment
