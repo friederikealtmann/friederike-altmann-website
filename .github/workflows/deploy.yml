@@ -25,18 +25,26 @@ jobs:
       - name: Build static site
         run: npm run build
 
-      - name: Deploy to Hetzner via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./_site/
-          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
-          protocol: ftps
-          port: 21
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.DS_Store
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via SFTP
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR }}
+        run: |
+          lftp -c "
+            set sftp:auto-confirm yes;
+            set net:max-retries 3;
+            set net:timeout 30;
+            set net:reconnect-interval-base 5;
+            open -u \"$FTP_USERNAME\",\"$FTP_PASSWORD\" sftp://$FTP_HOST:22;
+            mirror -R --verbose --parallel=4 \
+              --exclude-glob .git/ \
+              --exclude-glob node_modules/ \
+              --exclude-glob .DS_Store \
+              ./_site/ $FTP_REMOTE_DIR;
+            bye;
+          "
