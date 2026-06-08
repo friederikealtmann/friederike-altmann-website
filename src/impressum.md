@@ -26,7 +26,10 @@ Gemäß § 19 UStG wird keine Umsatzsteuer erhoben und folglich auch keine Umsat
 ## Redaktionell verantwortlich
 
 Friederike Altmann
-Untere Mühlstraße 27, 80999 München
+
+Untere Mühlstraße 27
+
+80999 München
 
 ## Bildnachweise
 
