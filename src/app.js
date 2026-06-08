@@ -24,17 +24,30 @@
     return card ? card.offsetWidth + 22 : 0;
   }
 
+  function atEnd(){
+    return grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 1;
+  }
+  function atStart(){
+    return grid.scrollLeft <= 0;
+  }
+
   function scrollByCard(dir){
     var step = getStep();
     if (!step) return;
+    // Wrap-around: am Ende → von vorn, am Anfang rückwärts → ans Ende
+    if (dir > 0 && atEnd()){
+      grid.scrollTo({left: 0, behavior: 'smooth'});
+      return;
+    }
+    if (dir < 0 && atStart()){
+      grid.scrollTo({left: grid.scrollWidth, behavior: 'smooth'});
+      return;
+    }
     grid.scrollBy({left: dir * step, behavior: 'smooth'});
   }
 
   function updateUI(){
-    if (prev && next){
-      prev.disabled = grid.scrollLeft <= 0;
-      next.disabled = grid.scrollLeft + grid.clientWidth >= grid.scrollWidth - 1;
-    }
+    // Buttons bleiben jetzt immer aktiv — Wrap-around übernimmt die Logik
     if (counter){
       var step = getStep();
       var idx = step ? Math.round(grid.scrollLeft / step) + 1 : 1;

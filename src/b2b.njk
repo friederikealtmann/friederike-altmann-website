@@ -1,8 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /b2b/
-title: B2B
-subtitle: Resilienz-Coaching für Unternehmen, Workshops & Vorträge
+eleventyComputed:
+  permalink: "{{ pages.b2b.permalink | safe }}"
+  title: "{{ pages.b2b.title | safe }}"
+  subtitle: "{{ pages.b2b.subtitle | safe }}"
 ---
 {% set p = pages.b2b %}
 {% set cta = p.cta %}
@@ -47,7 +48,7 @@ subtitle: Resilienz-Coaching für Unternehmen, Workshops & Vorträge
 <!-- Image break -->
 <section class="image-section">
   <div class="container">
-    <img src="{{ p.image_break.image }}" alt="{{ p.image_break.alt }}" style="display:block;width:100%;height:auto;border-radius:4px">
+    <img src="{{ p.image_break.image }}" alt="{{ p.image_break.alt }}" style="display:block;width:100%;height:auto;border-radius:4px;object-position:{{ p.image_break.image_position or 'center center' }}">
   </div>
 </section>
 

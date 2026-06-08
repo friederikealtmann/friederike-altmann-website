@@ -1,4 +1,6 @@
 {
+  "title": "B2B",
+  "permalink": "/b2b/",
   "subtitle": "Resilienz-Coaching für Unternehmen, Workshops & Vorträge",
   "hero": {
     "eyebrow": "Für Unternehmen · HR & Führung",
@@ -19,6 +21,7 @@
   },
   "image_break": {
     "image": "/assets/group-table.jpg",
+    "image_position": "center center",
     "alt": "Workshop · Team am Tisch"
   },
   "services": {

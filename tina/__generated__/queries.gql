@@ -603,6 +603,61 @@ query footerConnection($before: String, $after: String, $first: Float, $last: Fl
   }
 }
 
+query modal($relativePath: String!) {
+  modal(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ModalParts
+  }
+}
+
+query modalConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ModalFilter) {
+  modalConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ModalParts
+      }
+    }
+  }
+}
+
 query pages($relativePath: String!) {
   pages(relativePath: $relativePath) {
     ... on Document {

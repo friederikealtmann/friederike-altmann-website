@@ -1,8 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /methode/
-title: Methode
-subtitle: Systemisches & lösungsorientiertes Coaching
+eleventyComputed:
+  permalink: "{{ pages.methode.permalink | safe }}"
+  title: "{{ pages.methode.title | safe }}"
+  subtitle: "{{ pages.methode.subtitle | safe }}"
 ---
 {% set p = pages.methode %}
 <!-- Subpage Hero -->

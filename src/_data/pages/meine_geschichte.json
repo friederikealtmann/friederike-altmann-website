@@ -1,4 +1,6 @@
 {
+  "title": "Über mich",
+  "permalink": "/meine-geschichte/",
   "subtitle": "Meine Geschichte",
   "hero": {
     "eyebrow": "Über mich",
@@ -6,6 +8,7 @@
     "headline_accent": "Geschichte.",
     "lead": "Warum ich heute Menschen begleite — und warum ich das mit der Haltung tue, die ich habe. Kein Lebenslauf, eher ein Weg.",
     "image": "/assets/ueber-mich.jpg",
+    "image_position": "center center",
     "image_credit_url": "https://mirjamhagen.com/",
     "image_credit_label": "© Mirjam Hagen"
   },
@@ -33,6 +36,7 @@
   },
   "section_ueberzeugungen": {
     "image": "/assets/room-chair.jpg",
+    "image_position": "center center",
     "image_alt": "Praxis-Raum · Sessel",
     "eyebrow": "Was ich mitgenommen habe",
     "headline": "Drei",

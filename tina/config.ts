@@ -17,6 +17,34 @@ const leadField = {
   label: "Einleitungstext",
   ui: { component: "textarea" as const },
 };
+// Seiten-Meta (Titel + URL) — bewusst oben in jeder Page-Collection
+const pageMetaFields = [
+  { type: "string" as const, name: "title", label: "Seitentitel (im Browser-Tab)" },
+  {
+    type: "string" as const,
+    name: "permalink",
+    label: "Seiten-URL ⚠️ (z.B. /b2b/ — Änderung bricht Navigation!)",
+    description: "Nur ändern wenn du weißt was du tust. URL-Änderungen brechen Nav-Links und SEO.",
+  },
+  { type: "string" as const, name: "subtitle", label: "Seiten-Untertitel (im Title-Tag)" },
+];
+// Bildausschnitt-Optionen
+const imagePositionField = {
+  type: "string" as const,
+  name: "image_position",
+  label: "Bildausschnitt (welcher Teil sichtbar)",
+  options: [
+    "center center",
+    "center top",
+    "center bottom",
+    "left center",
+    "right center",
+    "left top",
+    "right top",
+    "left bottom",
+    "right bottom",
+  ],
+};
 
 export default defineConfig({
   branch,
@@ -46,7 +74,7 @@ export default defineConfig({
         match: { include: "index" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          { type: "string", name: "subtitle", label: "Seiten-Untertitel (im Title-Tag)" },
+          ...pageMetaFields,
           {
             type: "object",
             name: "hero",
@@ -57,6 +85,7 @@ export default defineConfig({
               { type: "string", name: "cta_secondary", label: "Sekundärer CTA-Button Text" },
               { type: "string", name: "cta_secondary_url", label: "Sekundärer CTA-Button Link" },
               { type: "image", name: "image", label: "Hero-Bild" },
+              imagePositionField,
               { type: "string", name: "image_credit_label", label: "Bild-Credit (Text)" },
               { type: "string", name: "image_credit_url", label: "Bild-Credit (Link)" },
             ],
@@ -112,6 +141,7 @@ export default defineConfig({
             label: "Bild-Sektion 1 (Gruppen-Tisch)",
             fields: [
               { type: "image", name: "image", label: "Bild" },
+              imagePositionField,
               { type: "string", name: "alt", label: "Alt-Text" },
             ],
           },
@@ -126,6 +156,7 @@ export default defineConfig({
               { type: "string", name: "cta_label", label: "Link-Text" },
               { type: "string", name: "cta_url", label: "Link-Ziel" },
               { type: "image", name: "image", label: "Über mich-Bild" },
+              imagePositionField,
               { type: "string", name: "image_credit_label", label: "Bild-Credit (Text)" },
               { type: "string", name: "image_credit_url", label: "Bild-Credit (Link)" },
             ],
@@ -142,6 +173,7 @@ export default defineConfig({
             label: "Bild-Sektion 2 (Praxis-Raum)",
             fields: [
               { type: "image", name: "image", label: "Bild" },
+              imagePositionField,
               { type: "string", name: "alt", label: "Alt-Text" },
             ],
           },
@@ -201,7 +233,7 @@ export default defineConfig({
         match: { include: "methode" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          { type: "string", name: "subtitle", label: "Seiten-Untertitel" },
+          ...pageMetaFields,
           { type: "object", name: "hero", label: "Hero", fields: [...headlineFields, leadField] },
           {
             type: "object",
@@ -310,7 +342,7 @@ export default defineConfig({
         match: { include: "angebot" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          { type: "string", name: "subtitle", label: "Seiten-Untertitel" },
+          ...pageMetaFields,
           { type: "object", name: "hero", label: "Hero", fields: [...headlineFields, leadField] },
           {
             type: "object",
@@ -357,7 +389,7 @@ export default defineConfig({
         match: { include: "b2b" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          { type: "string", name: "subtitle", label: "Seiten-Untertitel" },
+          ...pageMetaFields,
           { type: "object", name: "hero", label: "Hero", fields: [...headlineFields, leadField] },
           {
             type: "object",
@@ -386,6 +418,7 @@ export default defineConfig({
             label: "Bild-Sektion",
             fields: [
               { type: "image", name: "image", label: "Bild" },
+              imagePositionField,
               { type: "string", name: "alt", label: "Alt-Text" },
             ],
           },
@@ -445,7 +478,7 @@ export default defineConfig({
         match: { include: "meine_geschichte" },
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
-          { type: "string", name: "subtitle", label: "Seiten-Untertitel" },
+          ...pageMetaFields,
           {
             type: "object",
             name: "hero",
@@ -454,6 +487,7 @@ export default defineConfig({
               ...headlineFields,
               leadField,
               { type: "image", name: "image", label: "Portrait" },
+              imagePositionField,
               { type: "string", name: "image_credit_label", label: "Bild-Credit (Text)" },
               { type: "string", name: "image_credit_url", label: "Bild-Credit (Link)" },
             ],
@@ -488,6 +522,7 @@ export default defineConfig({
             label: "Sektion: Überzeugungen (mit Sessel-Bild)",
             fields: [
               { type: "image", name: "image", label: "Bild (Sessel)" },
+              imagePositionField,
               { type: "string", name: "image_alt", label: "Alt-Text" },
               ...headlineFields,
               {
@@ -649,6 +684,43 @@ export default defineConfig({
             fields: [
               { type: "string", name: "label", label: "Label" },
               { type: "string", name: "url", label: "URL" },
+            ],
+          },
+        ],
+      },
+
+      // ===========================================================
+      // KONTAKTFORMULAR / MODAL
+      // ===========================================================
+      {
+        name: "modal",
+        label: "✉️ Kontaktformular",
+        path: "src/_data",
+        format: "json",
+        match: { include: "modal" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "headline", label: "Überschrift" },
+          { type: "string", name: "headline_accent", label: "Überschrift (Akzent — wird fett)" },
+          { type: "string", name: "lead", label: "Einleitungstext", ui: { component: "textarea" } },
+          { type: "string", name: "field_name", label: "Label: Name-Feld" },
+          { type: "string", name: "field_email", label: "Label: E-Mail-Feld" },
+          { type: "string", name: "field_type", label: "Label: Dropdown-Feld" },
+          { type: "string", name: "field_message", label: "Label: Nachricht-Feld" },
+          { type: "string", name: "message_placeholder", label: "Placeholder im Nachricht-Feld" },
+          { type: "string", name: "consent_html", label: "DSGVO-Hinweis (HTML erlaubt)", ui: { component: "textarea" } },
+          { type: "string", name: "submit_label", label: "Button-Text (Anfrage senden)" },
+          { type: "string", name: "success_headline", label: "Bestätigung: Überschrift" },
+          { type: "string", name: "success_text", label: "Bestätigung: Text", ui: { component: "textarea" } },
+          {
+            type: "object",
+            name: "options",
+            label: "Dropdown-Optionen",
+            list: true,
+            ui: { itemProps: (item: any) => ({ label: item?.label || "Neue Option" }) },
+            fields: [
+              { type: "string", name: "value", label: "Wert (intern, z.B. einzel)" },
+              { type: "string", name: "label", label: "Anzeige-Text" },
             ],
           },
         ],

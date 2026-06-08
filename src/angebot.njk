@@ -1,8 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /angebot/
-title: Angebot
-subtitle: Einzel- & Gruppen-Coaching, Workshops
+eleventyComputed:
+  permalink: "{{ pages.angebot.permalink | safe }}"
+  title: "{{ pages.angebot.title | safe }}"
+  subtitle: "{{ pages.angebot.subtitle | safe }}"
 ---
 {% set p = pages.angebot %}
 {% set cta = p.cta %}

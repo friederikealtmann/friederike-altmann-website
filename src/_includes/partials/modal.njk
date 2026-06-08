@@ -2,19 +2,19 @@
   <div class="modal-card">
     <button class="modal-close" aria-label="Schließen" type="button">&times;</button>
     <div class="modal-form-wrap">
-      <h3 id="contact-modal-title">Lass uns <strong>reden.</strong></h3>
-      <p class="lead">Schreib mir kurz, worum es geht. Ich melde mich innerhalb von zwei Werktagen mit einem Terminvorschlag.</p>
+      <h3 id="contact-modal-title">{{ modal.headline }} <strong>{{ modal.headline_accent }}</strong></h3>
+      <p class="lead">{{ modal.lead }}</p>
       <form id="contact-form">
         <div class="form-field">
-          <label for="form-name">Dein Name</label>
+          <label for="form-name">{{ modal.field_name }}</label>
           <input type="text" id="form-name" name="name" autocomplete="name" required>
         </div>
         <div class="form-field">
-          <label for="form-email">E-Mail</label>
+          <label for="form-email">{{ modal.field_email }}</label>
           <input type="email" id="form-email" name="email" autocomplete="email" required>
         </div>
         <div class="form-field">
-          <label for="form-type">Worum geht's?</label>
+          <label for="form-type">{{ modal.field_type }}</label>
           <select id="form-type" name="type">
             {% for opt in modal.options %}
             <option value="{{ opt.value }}"{% if opt.value == "allgemein" %} selected{% endif %}>{{ opt.label }}</option>
@@ -22,20 +22,20 @@
           </select>
         </div>
         <div class="form-field">
-          <label for="form-message">Deine Nachricht</label>
-          <textarea id="form-message" name="message" placeholder="Was bewegt dich gerade?" required></textarea>
+          <label for="form-message">{{ modal.field_message }}</label>
+          <textarea id="form-message" name="message" placeholder="{{ modal.message_placeholder }}" required></textarea>
         </div>
         <label class="form-consent">
           <input type="checkbox" required>
-          <span>Ich bin damit einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. Details in der <a href="/datenschutz/">Datenschutzerklärung</a>.</span>
+          <span>{{ modal.consent_html | safe }}</span>
         </label>
-        <button type="submit" class="btn btn-primary">Anfrage senden <span class="arrow">→</span></button>
+        <button type="submit" class="btn btn-primary">{{ modal.submit_label }} <span class="arrow">→</span></button>
       </form>
     </div>
     <div class="form-success" style="display:none">
       <div class="form-success-icon">✓</div>
-      <h3>Danke!</h3>
-      <p class="lead" style="margin-top:.8rem">Deine Nachricht ist angekommen. Ich melde mich innerhalb von zwei Werktagen.</p>
+      <h3>{{ modal.success_headline }}</h3>
+      <p class="lead" style="margin-top:.8rem">{{ modal.success_text }}</p>
     </div>
   </div>
 </div>

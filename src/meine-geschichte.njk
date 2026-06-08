@@ -1,8 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /meine-geschichte/
-title: Über mich
-subtitle: Meine Geschichte
+eleventyComputed:
+  permalink: "{{ pages.meine_geschichte.permalink | safe }}"
+  title: "{{ pages.meine_geschichte.title | safe }}"
+  subtitle: "{{ pages.meine_geschichte.subtitle | safe }}"
 ---
 {% set p = pages.meine_geschichte %}
 {% set cta = p.cta %}
@@ -16,7 +17,7 @@ subtitle: Meine Geschichte
     </div>
     <div class="subpage-portrait-wrap">
       <div class="subpage-portrait">
-        <img src="{{ p.hero.image }}" alt="{{ site.name }} · Portrait · {{ p.hero.image_credit_label }}">
+        <img src="{{ p.hero.image }}" alt="{{ site.name }} · Portrait · {{ p.hero.image_credit_label }}" style="object-position:{{ p.hero.image_position or 'center center' }}">
       </div>
       <a class="photo-credit-below" href="{{ p.hero.image_credit_url }}" target="_blank" rel="noopener">{{ p.hero.image_credit_label }}</a>
     </div>
@@ -62,7 +63,7 @@ subtitle: Meine Geschichte
 <section class="story has-image">
   <div class="container story-image-grid">
     <div class="story-img">
-      <img src="{{ p.section_ueberzeugungen.image }}" alt="{{ p.section_ueberzeugungen.image_alt }}">
+      <img src="{{ p.section_ueberzeugungen.image }}" alt="{{ p.section_ueberzeugungen.image_alt }}" style="object-position:{{ p.section_ueberzeugungen.image_position or 'center center' }}">
     </div>
     <div>
       <span class="eyebrow">{{ p.section_ueberzeugungen.eyebrow }}</span>

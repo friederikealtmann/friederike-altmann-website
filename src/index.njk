@@ -1,7 +1,9 @@
 ---
 layout: layouts/base.njk
-permalink: /
-subtitle: Systemisches Coaching für Resilienz & Mentale Gesundheit
+eleventyComputed:
+  permalink: "{{ pages.index.permalink | safe }}"
+  title: "{{ pages.index.title | safe }}"
+  subtitle: "{{ pages.index.subtitle | safe }}"
 ---
 {% set p = pages.index %}
 <!-- Hero -->
@@ -17,7 +19,7 @@ subtitle: Systemisches Coaching für Resilienz & Mentale Gesundheit
       </div>
     </div>
     <div class="hero-visual">
-      <img src="{{ p.hero.image }}" alt="{{ site.name }} · {{ p.hero.image_credit_label }}" onerror="this.style.display='none'">
+      <img src="{{ p.hero.image }}" alt="{{ site.name }} · {{ p.hero.image_credit_label }}" style="object-position:{{ p.hero.image_position or 'center center' }}" onerror="this.style.display='none'">
       <a class="photo-credit" href="{{ p.hero.image_credit_url }}" target="_blank" rel="noopener">{{ p.hero.image_credit_label }}</a>
     </div>
   </div>
@@ -80,7 +82,7 @@ subtitle: Systemisches Coaching für Resilienz & Mentale Gesundheit
 <!-- Image break · Gruppen-Atmosphäre (auf Mobile ausgeblendet) -->
 <section class="image-section mobile-hide">
   <div class="container">
-    <img src="{{ p.image_break_1.image }}" alt="{{ p.image_break_1.alt }}" style="display:block;width:100%;height:auto;border-radius:4px">
+    <img src="{{ p.image_break_1.image }}" alt="{{ p.image_break_1.alt }}" style="display:block;width:100%;height:auto;border-radius:4px;object-position:{{ p.image_break_1.image_position or 'center center' }}">
   </div>
 </section>
 
@@ -88,7 +90,7 @@ subtitle: Systemisches Coaching für Resilienz & Mentale Gesundheit
 <section class="about" id="about">
   <div class="container about-grid">
     <div class="about-visual">
-      <img src="{{ p.about_teaser.image }}" alt="{{ site.name }} · Portrait · {{ p.about_teaser.image_credit_label }}" onerror="this.parentElement.querySelector('.about-visual-label').style.display='inline-block';this.style.display='none'">
+      <img src="{{ p.about_teaser.image }}" alt="{{ site.name }} · Portrait · {{ p.about_teaser.image_credit_label }}" style="object-position:{{ p.about_teaser.image_position or 'center center' }}" onerror="this.parentElement.querySelector('.about-visual-label').style.display='inline-block';this.style.display='none'">
       <span class="about-visual-label" style="display:none">Portrait · Business-Shooting</span>
       <a class="photo-credit" href="{{ p.about_teaser.image_credit_url }}" target="_blank" rel="noopener">{{ p.about_teaser.image_credit_label }}</a>
     </div>
@@ -138,7 +140,7 @@ subtitle: Systemisches Coaching für Resilienz & Mentale Gesundheit
 <!-- Image break · Praxis-Raum -->
 <section class="image-section">
   <div class="container">
-    <img src="{{ p.image_break_2.image }}" alt="{{ p.image_break_2.alt }}" style="display:block;width:100%;height:540px;object-fit:cover;border-radius:4px">
+    <img src="{{ p.image_break_2.image }}" alt="{{ p.image_break_2.alt }}" style="display:block;width:100%;height:540px;object-fit:cover;object-position:{{ p.image_break_2.image_position or 'center center' }};border-radius:4px">
   </div>
 </section>
 

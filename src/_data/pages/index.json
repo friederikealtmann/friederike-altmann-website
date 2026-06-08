@@ -1,4 +1,6 @@
 {
+  "title": "",
+  "permalink": "/",
   "subtitle": "Systemisches Coaching für Resilienz & Mentale Gesundheit",
   "hero": {
     "eyebrow": "Systemisches Coaching · München & online",
@@ -8,6 +10,7 @@
     "cta_secondary": "Mehr über das Angebot",
     "cta_secondary_url": "/angebot/",
     "image": "/assets/friederike-hero.jpg",
+    "image_position": "center center",
     "image_credit_url": "https://mirjamhagen.com/",
     "image_credit_label": "© Mirjam Hagen"
   },
@@ -37,6 +40,7 @@
   },
   "image_break_1": {
     "image": "/assets/group-table.jpg",
+    "image_position": "center center",
     "alt": "Gruppen-Coaching · Atmosphäre am Tisch"
   },
   "about_teaser": {
@@ -48,6 +52,7 @@
     "cta_label": "Meine ganze Geschichte",
     "cta_url": "/meine-geschichte/",
     "image": "/assets/friederike-about.png",
+    "image_position": "center center",
     "image_credit_url": "https://mirjamhagen.com/",
     "image_credit_label": "© Mirjam Hagen"
   },
@@ -58,6 +63,7 @@
   },
   "image_break_2": {
     "image": "/assets/room-window.jpg",
+    "image_position": "center center",
     "alt": "Atmosphäre · Fenster mit Eukalyptus"
   },
   "process": {
