@@ -8,8 +8,8 @@ subtitle: Impressum
 
 ## Friederike Altmann Coaching
 
-Friederike Altmann
-Untere Mühlstraße 27
+Friederike Altmann\
+Untere Mühlstraße 27\
 80999 München
 
 ## Kontakt
@@ -23,8 +23,8 @@ Gemäß § 19 UStG wird keine Umsatzsteuer erhoben und folglich auch keine Umsat
 
 ## Redaktionell verantwortlich
 
-Friederike Altmann
-Untere Mühlstraße 27
+Friederike Altmann\
+Untere Mühlstraße 27\
 80999 München
 
 ## Bildnachweise
