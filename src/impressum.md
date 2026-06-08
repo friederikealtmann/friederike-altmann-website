@@ -9,11 +9,15 @@ subtitle: Impressum
 ## Friederike Altmann Coaching
 
 Friederike Altmann
+
+
 Untere Mühlstraße 27, 80999 München
 
 ## Kontakt
 
 Telefon: +49 (0) 178 2805138
+
+
 E-Mail: [post@friederikealtmann.de](mailto:post@friederikealtmann.de)
 
 ## Umsatzsteuer-ID
@@ -29,8 +33,8 @@ Untere Mühlstraße 27, 80999 München
 
 Die auf dieser Website verwendeten Bilder stammen aus folgenden Quellen:
 
-- Bilder, auf denen ich selbst abgebildet bin: erstellt von [Mirjam Hagen](https://mirjamhagen.com/)
-- Weitere verwendete Bilder (Stockbilder): bereitgestellt über die Plattform Unsplash
+* Bilder, auf denen ich selbst abgebildet bin: erstellt von [Mirjam Hagen](https://mirjamhagen.com/)
+* Weitere verwendete Bilder (Stockbilder): bereitgestellt über die Plattform Unsplash
 
 Die Nutzung der Bilder erfolgt im Rahmen der jeweiligen Lizenzbedingungen der Anbieter:innen.
 
