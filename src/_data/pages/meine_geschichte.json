@@ -6,11 +6,11 @@
     "eyebrow": "Über mich",
     "headline": "Meine",
     "headline_accent": "Geschichte.",
-    "lead": "Warum ich heute Menschen begleite — und warum ich das mit der Haltung tue, die ich habe. Kein Lebenslauf, eher ein Weg.",
+    "lead": "Warum ich heute Menschen begleite — und warum ich das mit der Haltung mache, die ich habe. Kein Lebenslauf, eher ein Weg.",
     "image": "/assets/ueber-mich.jpg",
     "image_position": "center center",
-    "image_credit_url": "https://mirjamhagen.com/",
-    "image_credit_label": "© Mirjam Hagen"
+    "image_credit_label": "© Mirjam Hagen",
+    "image_credit_url": "https://mirjamhagen.com/"
   },
   "section_herkunft": {
     "eyebrow": "Wo ich herkomme",
@@ -42,9 +42,18 @@
     "headline": "Drei",
     "headline_accent": "Überzeugungen.",
     "convictions": [
-      { "bold": "Veränderung muss sich nicht schwer anfühlen.", "text": "Wenn der richtige Hebel gefunden ist, bewegt sich viel mit wenig Kraft. Die meiste Energie geht für die falschen Hebel drauf." },
-      { "bold": "Niemand steht allein im Raum.", "text": "Jede Krise und jede Stärke hat einen Kontext. Wer nur auf die Person schaut, übersieht die Hälfte der Geschichte." },
-      { "bold": "Es gibt immer eine nächste Tür.", "text": "Auch wenn sie unsichtbar erscheint. Mein Job ist, die Tür sichtbar zu machen — nicht, dich hindurchzuschieben." }
+      {
+        "bold": "Veränderung muss sich nicht schwer anfühlen.",
+        "text": "Wenn der richtige Hebel gefunden ist, bewegt sich viel mit wenig Kraft. Die meiste Energie geht für die falschen Hebel drauf."
+      },
+      {
+        "bold": "Niemand steht allein im Raum.",
+        "text": "Jede Krise und jede Stärke hat einen Kontext. Wer nur auf die Person schaut, übersieht die Hälfte der Geschichte."
+      },
+      {
+        "bold": "Es gibt immer eine nächste Tür.",
+        "text": "Auch wenn sie unsichtbar erscheint. Mein Job ist, die Tür sichtbar zu machen — nicht, dich hindurchzuschieben."
+      }
     ]
   },
   "section_heute": {
