@@ -38,12 +38,36 @@
     "headline_accent": "trainierbar sind.",
     "lead": "Resilienz ist keine Charaktereigenschaft, mit der man geboren wird. Sie ist eine Reihe von Haltungen und Fähigkeiten, die sich gezielt aufbauen lassen.",
     "items": [
-      { "num": "01", "title": "Optimismus", "text": "Realistischer Blick nach vorn — nicht naiv positiv, sondern lösungsfähig." },
-      { "num": "02", "title": "Akzeptanz", "text": "Anerkennen, was ist, bevor wir verändern, was wir verändern können." },
-      { "num": "03", "title": "Lösungsorientierung", "text": "Vom Problem zur Frage: Was wäre stattdessen wünschenswert?" },
-      { "num": "04", "title": "Selbstwirksamkeit", "text": "Das Vertrauen, dass eigenes Handeln einen Unterschied macht." },
-      { "num": "05", "title": "Verantwortung", "text": "Den eigenen Anteil sehen — ohne sich für alles verantwortlich zu fühlen." },
-      { "num": "06", "title": "Netzwerk-Orientierung", "text": "Beziehungen pflegen, Unterstützung annehmen, nicht alles allein tragen." }
+      {
+        "num": "02",
+        "title": "Optimismus",
+        "text": "Realistischer Blick nach vorn — nicht naiv positiv, sondern lösungsfähig."
+      },
+      {
+        "num": "02",
+        "title": "Akzeptanz",
+        "text": "Anerkennen, was ist, bevor wir verändern, was wir verändern können."
+      },
+      {
+        "num": "03",
+        "title": "Lösungsorientierung",
+        "text": "Vom Problem zur Frage: Was wäre stattdessen wünschenswert?"
+      },
+      {
+        "num": "04",
+        "title": "Selbstwirksamkeit",
+        "text": "Das Vertrauen, dass eigenes Handeln einen Unterschied macht."
+      },
+      {
+        "num": "05",
+        "title": "Verantwortung",
+        "text": "Den eigenen Anteil sehen — ohne sich für alles verantwortlich zu fühlen."
+      },
+      {
+        "num": "06",
+        "title": "Netzwerk-Orientierung",
+        "text": "Beziehungen pflegen, Unterstützung annehmen, nicht alles allein tragen."
+      }
     ]
   },
   "section_profil": {
