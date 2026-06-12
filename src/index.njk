@@ -202,10 +202,9 @@ eleventyComputed:
     </div>
     <div class="cta-card">
       <dl>
-        <dt>E-Mail</dt><dd>{{ site.contact.email }}</dd>
-        <dt>Telefon</dt><dd>{{ site.contact.phone }}</dd>
-        <dt>Website</dt><dd>{{ site.contact.website }}</dd>
-        <dt>Social</dt><dd>{{ site.contact.social }}</dd>
+        <dt>E-Mail</dt><dd><a href="mailto:{{ site.contact.email }}">{{ site.contact.email }}</a></dd>
+        <dt>WhatsApp</dt><dd><a href="https://wa.me/{{ site.contact.phone_whatsapp }}" target="_blank" rel="noopener">{{ site.contact.phone }}</a></dd>
+        <dt>Instagram</dt><dd><a href="{{ site.contact.social_url }}" target="_blank" rel="noopener">{{ site.contact.social }}</a></dd>
       </dl>
     </div>
   </div>

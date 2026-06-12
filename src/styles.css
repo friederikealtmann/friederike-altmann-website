@@ -377,6 +377,8 @@ section.cta{padding:7rem 0;background:var(--tinte);color:var(--flieder)}
 .cta-card dl{display:grid;grid-template-columns:max-content 1fr;gap:1rem 1.6rem;font-size:.95rem}
 .cta-card dt{color:var(--nebel);text-transform:uppercase;letter-spacing:.22em;font-size:.62rem;font-weight:700;align-self:center}
 .cta-card dd{color:var(--flieder);font-weight:400}
+.cta-card dd a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(227,221,234,.25);transition:border-color .2s ease,color .2s ease}
+.cta-card dd a:hover{color:#fff;border-bottom-color:var(--safran)}
 
 /* ---------- Footer ---------- */
 footer{background:var(--bg);padding:3.5rem 0 2.5rem;color:var(--tinte);border-top:1px solid var(--bg-hairline)}

@@ -618,9 +618,21 @@ export default defineConfig({
             label: "Kontakt",
             fields: [
               { type: "string", name: "email", label: "E-Mail" },
-              { type: "string", name: "phone", label: "Telefon" },
+              { type: "string", name: "phone", label: "Telefon (Anzeige-Format)" },
+              {
+                type: "string",
+                name: "phone_whatsapp",
+                label: "WhatsApp-Nummer (nur Ziffern, mit Ländercode, z.B. 491782805138)",
+                description: "Für den WhatsApp-Link. Plus, Leerzeichen und Klammern weglassen.",
+              },
               { type: "string", name: "website", label: "Website" },
-              { type: "string", name: "social", label: "Social" },
+              { type: "string", name: "social", label: "Instagram Handle (Anzeige)" },
+              {
+                type: "string",
+                name: "social_url",
+                label: "Instagram-URL (Link-Ziel)",
+                description: "z.B. https://instagram.com/friederike.altmann",
+              },
               { type: "string", name: "location", label: "Standort" },
             ],
           },
