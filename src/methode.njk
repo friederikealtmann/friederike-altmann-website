@@ -20,7 +20,7 @@ eleventyComputed:
   <div class="container">
     <span class="eyebrow">{{ p.section_systemisch.eyebrow }}</span>
     <h2>{{ p.section_systemisch.headline }} <strong>{{ p.section_systemisch.headline_accent }}</strong></h2>
-    {% for para in p.section_systemisch.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+    {% for para in p.section_systemisch.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
   </div>
 </section>
 
@@ -38,7 +38,7 @@ eleventyComputed:
   <div class="container">
     <span class="eyebrow">{{ p.section_loesungsorientiert.eyebrow }}</span>
     <h2>{{ p.section_loesungsorientiert.headline }} <strong>{{ p.section_loesungsorientiert.headline_accent }}</strong></h2>
-    {% for para in p.section_loesungsorientiert.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+    {% for para in p.section_loesungsorientiert.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
   </div>
 </section>
 
@@ -63,7 +63,7 @@ eleventyComputed:
   <div class="container">
     <span class="eyebrow">{{ p.section_profil.eyebrow }}</span>
     <h2>{{ p.section_profil.headline }} <strong>{{ p.section_profil.headline_accent }}</strong></h2>
-    {% for para in p.section_profil.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+    {% for para in p.section_profil.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
   </div>
 </section>
 
@@ -72,7 +72,7 @@ eleventyComputed:
   <div class="container">
     <span class="eyebrow">{{ p.section_science.eyebrow }}</span>
     <h2>{{ p.section_science.headline }} <strong>{{ p.section_science.headline_accent }}</strong></h2>
-    {% for para in p.section_science.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+    {% for para in p.section_science.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
   </div>
 </section>
 

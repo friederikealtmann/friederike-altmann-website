@@ -241,7 +241,7 @@ blockquote::before{content:"";display:block;width:60px;height:2px;background:var
 section.pull-quote{padding:5rem 0;background:var(--bg)}
 .pull-quote-wrap{max-width:760px;margin:0 auto;text-align:center;padding:0 1rem}
 .pull-quote-mark{font-family:Georgia,"Times New Roman",serif;font-size:5rem;color:var(--safran);line-height:.6;letter-spacing:-.04em;display:block;margin-bottom:.8rem}
-.pull-quote-text{font-family:"Manrope",sans-serif;font-weight:200;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;color:var(--tinte);letter-spacing:-.015em;font-style:italic}
+.pull-quote-text{font-family:"Manrope",sans-serif;font-weight:200;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.35;color:var(--tinte);letter-spacing:-.015em;font-style:italic;white-space:pre-line}
 .pull-quote-cite{margin-top:1.4rem;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--tinte);opacity:.6;font-weight:600}
 
 /* ---------- Testimonials ---------- */

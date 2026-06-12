@@ -32,7 +32,7 @@ eleventyComputed:
       <h2>{{ p.section_herkunft.headline }} <strong>{{ p.section_herkunft.headline_accent }}</strong></h2>
     </div>
     <div>
-      {% for para in p.section_herkunft.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+      {% for para in p.section_herkunft.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
     </div>
   </div>
 </section>
@@ -45,7 +45,7 @@ eleventyComputed:
       <h2>{{ p.section_wendepunkt.headline }} <strong>{{ p.section_wendepunkt.headline_accent }}</strong></h2>
     </div>
     <div>
-      {% for para in p.section_wendepunkt.paragraphs %}<p>{{ para | safe }}</p>{% endfor %}
+      {% for para in p.section_wendepunkt.body.split('\n\n') %}{% if para | trim %}<p>{{ para | trim | safe }}</p>{% endif %}{% endfor %}
     </div>
   </div>
 </section>

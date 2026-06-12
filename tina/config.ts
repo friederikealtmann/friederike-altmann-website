@@ -251,7 +251,7 @@ export default defineConfig({
             label: "Sektion: Systemisch denken",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
@@ -269,7 +269,7 @@ export default defineConfig({
             label: "Sektion: Lösungsorientiert",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
@@ -299,7 +299,7 @@ export default defineConfig({
             label: "Sektion: Resilienz-Profil",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
@@ -308,7 +308,7 @@ export default defineConfig({
             label: "Sektion: Wissenschaftlich fundiert",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
@@ -528,7 +528,7 @@ export default defineConfig({
             label: "Sektion: Wo ich herkomme",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
@@ -537,7 +537,7 @@ export default defineConfig({
             label: "Sektion: Der Wendepunkt",
             fields: [
               ...headlineFields,
-              { type: "string", name: "paragraphs", label: "Absätze", list: true, ui: { component: "textarea" } },
+              { type: "string", name: "body", label: "Inhalt (mehrere Absätze: einfach Enter zweimal drücken)", description: "Für einen neuen Absatz: zwei Zeilenumbrüche (Enter zweimal).", ui: { component: "textarea" } },
             ],
           },
           {
