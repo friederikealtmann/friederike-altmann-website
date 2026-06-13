@@ -73,12 +73,18 @@ $body .= $message . "\n\n";
 $body .= str_repeat('-', 60) . "\n";
 $body .= "Hinweis: Antwort auf diese Mail geht direkt an $email.\n";
 
-// From: noreply auf eigener Domain. Reply-To zeigt auf Absender.
+// From: Hetzner-Subdomain damit SPF passt (friederikealtmann.de SPF erlaubt nur Google).
+// Display-Name signalisiert klar dass es vom Website-Formular kommt.
+// Reply-To zeigt auf den Absender, damit Friederike direkt antworten kann.
+$serverHost = gethostname();
+if (!$serverHost || strpos($serverHost, '.') === false) {
+    $serverHost = 'www716.your-server.de';
+}
 $fromName  = 'Website Friederike Altmann';
-$fromEmail = 'noreply@friederikealtmann.de';
+$fromEmail = 'noreply@' . $serverHost;
 
-$encodedSubject  = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$encodedFromName = '=?UTF-8?B?' . base64_encode($fromName) . '?=';
+$encodedSubject   = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+$encodedFromName  = '=?UTF-8?B?' . base64_encode($fromName) . '?=';
 $encodedReplyName = '=?UTF-8?B?' . base64_encode($name) . '?=';
 
 $headers  = "From: $encodedFromName <$fromEmail>\r\n";
@@ -88,10 +94,9 @@ $headers .= "MIME-Version: 1.0\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "Content-Transfer-Encoding: 8bit\r\n";
 
-// Envelope-Sender setzen (Return-Path) damit Bounces sauber zurückkommen
-$additional = '-f' . $fromEmail;
-
-$ok = @mail($to, $encodedSubject, $body, $headers, $additional);
+// Kein -f Flag mehr: lass Hetzner den Envelope-Sender selbst setzen,
+// damit Return-Path und SPF zusammenpassen.
+$ok = @mail($to, $encodedSubject, $body, $headers);
 
 if ($ok) {
     echo json_encode(['ok' => true]);
