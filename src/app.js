@@ -154,19 +154,21 @@
 
     var formData = new FormData(form);
 
-    fetch(form.action || '/contact.php', {
+    fetch(form.action, {
       method: 'POST',
       body: formData,
       headers: { 'Accept': 'application/json' }
     })
       .then(function(r){ return r.json().then(function(data){ return {status: r.status, data: data}; }); })
       .then(function(res){
-        if (res.status >= 200 && res.status < 300 && res.data.ok){
+        // FormSubmit returns {"success": "true"} on success, {"success": "false"} on error
+        var ok = res.status >= 200 && res.status < 300 && (res.data.success === 'true' || res.data.success === true || res.data.ok);
+        if (ok){
           formWrap.style.display = 'none';
           success.style.display = 'block';
           form.reset();
         } else {
-          showError((res.data && res.data.error) || 'Senden fehlgeschlagen. Bitte direkt an post@friederikealtmann.de schreiben.');
+          showError((res.data && (res.data.message || res.data.error)) || 'Senden fehlgeschlagen. Bitte direkt an post@friederikealtmann.de schreiben.');
         }
       })
       .catch(function(){

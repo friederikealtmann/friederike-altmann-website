@@ -4,12 +4,13 @@
     <div class="modal-form-wrap">
       <h3 id="contact-modal-title">{{ modal.headline }} <strong>{{ modal.headline_accent }}</strong></h3>
       <p class="lead">{{ modal.lead }}</p>
-      <form id="contact-form" action="/contact.php" method="POST" novalidate>
-        <!-- Honeypot: für Menschen unsichtbar, Bots füllen's aus → Server ignoriert -->
-        <div style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true">
-          <label>Website (bitte leer lassen)</label>
-          <input type="text" name="website" tabindex="-1" autocomplete="off">
-        </div>
+      <form id="contact-form" action="https://formsubmit.co/ajax/post@friederikealtmann.de" method="POST" novalidate>
+        <!-- FormSubmit Konfiguration -->
+        <input type="hidden" name="_subject" value="Neue Anfrage über die Website">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <!-- Honeypot: für Menschen unsichtbar, Bots füllen's aus → FormSubmit ignoriert -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div class="form-field">
           <label for="form-name">{{ modal.field_name }}</label>
           <input type="text" id="form-name" name="name" autocomplete="name" required>
