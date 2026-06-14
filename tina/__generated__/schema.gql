@@ -230,6 +230,7 @@ type Page_indexContact {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 type Page_index implements Node & Document {
@@ -373,6 +374,7 @@ input Page_indexContactFilter {
   headline: StringFilter
   headline_accent: StringFilter
   text: StringFilter
+  modal_value: StringFilter
 }
 
 input Page_indexFilter {
@@ -414,7 +416,7 @@ type Page_methodeSection_systemisch {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_methodePull_quote {
@@ -426,7 +428,7 @@ type Page_methodeSection_loesungsorientiert {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_methodeFactorsItems {
@@ -447,14 +449,14 @@ type Page_methodeSection_profil {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_methodeSection_science {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_methodeCompareMinus {
@@ -502,7 +504,7 @@ input Page_methodeSection_systemischFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_methodePull_quoteFilter {
@@ -514,7 +516,7 @@ input Page_methodeSection_loesungsorientiertFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_methodeFactorsItemsFilter {
@@ -535,14 +537,14 @@ input Page_methodeSection_profilFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_methodeSection_scienceFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_methodeCompareMinusFilter {
@@ -613,6 +615,7 @@ type Page_angebotCta {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 type Page_angebot implements Node & Document {
@@ -653,6 +656,7 @@ input Page_angebotCtaFilter {
   headline: StringFilter
   headline_accent: StringFilter
   text: StringFilter
+  modal_value: StringFilter
 }
 
 input Page_angebotFilter {
@@ -727,6 +731,7 @@ type Page_b2bCta {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 type Page_b2b implements Node & Document {
@@ -796,6 +801,7 @@ input Page_b2bCtaFilter {
   headline: StringFilter
   headline_accent: StringFilter
   text: StringFilter
+  modal_value: StringFilter
 }
 
 input Page_b2bFilter {
@@ -836,14 +842,14 @@ type Page_meine_geschichteSection_herkunft {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_meine_geschichteSection_wendepunkt {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 type Page_meine_geschichtePull_quote {
@@ -879,6 +885,7 @@ type Page_meine_geschichteCta {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 type Page_meine_geschichte implements Node & Document {
@@ -912,14 +919,14 @@ input Page_meine_geschichteSection_herkunftFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_meine_geschichteSection_wendepunktFilter {
   eyebrow: StringFilter
   headline: StringFilter
   headline_accent: StringFilter
-  paragraphs: StringFilter
+  body: StringFilter
 }
 
 input Page_meine_geschichtePull_quoteFilter {
@@ -955,6 +962,7 @@ input Page_meine_geschichteCtaFilter {
   headline: StringFilter
   headline_accent: StringFilter
   text: StringFilter
+  modal_value: StringFilter
 }
 
 input Page_meine_geschichteFilter {
@@ -984,8 +992,10 @@ type Page_meine_geschichteConnection implements Connection {
 type SiteContact {
   email: String
   phone: String
+  phone_whatsapp: String
   website: String
   social: String
+  social_url: String
   location: String
 }
 
@@ -1002,8 +1012,10 @@ type Site implements Node & Document {
 input SiteContactFilter {
   email: StringFilter
   phone: StringFilter
+  phone_whatsapp: StringFilter
   website: StringFilter
   social: StringFilter
+  social_url: StringFilter
   location: StringFilter
 }
 
@@ -1443,6 +1455,7 @@ input Page_indexContactMutation {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 input Page_indexMutation {
@@ -1473,7 +1486,7 @@ input Page_methodeSection_systemischMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_methodePull_quoteMutation {
@@ -1485,7 +1498,7 @@ input Page_methodeSection_loesungsorientiertMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_methodeFactorsItemsMutation {
@@ -1506,14 +1519,14 @@ input Page_methodeSection_profilMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_methodeSection_scienceMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_methodeCompareMinusMutation {
@@ -1573,6 +1586,7 @@ input Page_angebotCtaMutation {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 input Page_angebotMutation {
@@ -1636,6 +1650,7 @@ input Page_b2bCtaMutation {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 input Page_b2bMutation {
@@ -1665,14 +1680,14 @@ input Page_meine_geschichteSection_herkunftMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_meine_geschichteSection_wendepunktMutation {
   eyebrow: String
   headline: String
   headline_accent: String
-  paragraphs: [String]
+  body: String
 }
 
 input Page_meine_geschichtePull_quoteMutation {
@@ -1708,6 +1723,7 @@ input Page_meine_geschichteCtaMutation {
   headline: String
   headline_accent: String
   text: String
+  modal_value: String
 }
 
 input Page_meine_geschichteMutation {
@@ -1726,8 +1742,10 @@ input Page_meine_geschichteMutation {
 input SiteContactMutation {
   email: String
   phone: String
+  phone_whatsapp: String
   website: String
   social: String
+  social_url: String
   location: String
 }
 

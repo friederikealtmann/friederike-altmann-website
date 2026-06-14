@@ -108,6 +108,7 @@ fragment Page_indexParts on Page_index {
     headline
     headline_accent
     text
+    modal_value
   }
 }
 
@@ -128,7 +129,7 @@ fragment Page_methodeParts on Page_methode {
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   pull_quote {
     __typename
@@ -140,7 +141,7 @@ fragment Page_methodeParts on Page_methode {
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   factors {
     __typename
@@ -160,14 +161,14 @@ fragment Page_methodeParts on Page_methode {
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   section_science {
     __typename
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   compare {
     __typename
@@ -218,6 +219,7 @@ fragment Page_angebotParts on Page_angebot {
     headline
     headline_accent
     text
+    modal_value
   }
 }
 
@@ -277,6 +279,7 @@ fragment Page_b2bParts on Page_b2b {
     headline
     headline_accent
     text
+    modal_value
   }
 }
 
@@ -301,14 +304,14 @@ fragment Page_meine_geschichteParts on Page_meine_geschichte {
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   section_wendepunkt {
     __typename
     eyebrow
     headline
     headline_accent
-    paragraphs
+    body
   }
   pull_quote {
     __typename
@@ -343,6 +346,7 @@ fragment Page_meine_geschichteParts on Page_meine_geschichte {
     headline
     headline_accent
     text
+    modal_value
   }
 }
 
@@ -355,8 +359,10 @@ fragment SiteParts on Site {
     __typename
     email
     phone
+    phone_whatsapp
     website
     social
+    social_url
     location
   }
 }
