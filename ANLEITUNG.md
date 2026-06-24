@@ -45,7 +45,7 @@ Falls du noch keinen hast:
 
 Dein Website-Code liegt unter: **https://github.com/friederikealtmann/friederike-altmann-website**
 
-Lena (oder wer das ursprünglich eingerichtet hat) muss dich als **Collaborator** oder **Owner** der Organisation `friederikealtmann` einladen. Sobald die Einladung in deiner GitHub-Inbox steht: akzeptieren.
+Lena muss dich als **Collaborator** oder **Owner** der Organisation `friederikealtmann` einladen. Sobald die Einladung in deiner GitHub-Inbox steht: akzeptieren.
 
 ### Schritt 3 — Claude Code installieren
 
