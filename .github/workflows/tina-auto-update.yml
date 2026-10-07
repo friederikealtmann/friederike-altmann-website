@@ -1,0 +1,147 @@
+name: TinaCMS Auto-Update
+
+# Bringt TinaCMS einmal im Monat auf den neuesten Stand:
+# Update installieren → tina-lock.json neu erzeugen → Admin und Website testweise bauen
+# → nur wenn alles klappt: Commit pushen, Deploy starten und auf sein Ergebnis warten.
+# Schlägt ein Schritt fehl, wird dieser Lauf rot und GitHub schickt eine E-Mail.
+# Neue Hauptversionen von tinacms (z. B. 4.0) werden bewusst nicht automatisch installiert.
+
+on:
+  schedule:
+    - cron: '30 5 1 * *' # am 1. jedes Monats, 05:30 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Nur testen, nichts pushen'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write # Update-Commit pushen
+  actions: write # Deploy-Workflow starten
+
+concurrency:
+  group: tina-auto-update
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24' # muss zur node-version in deploy.yml passen
+
+      - name: Neue Version ermitteln
+        id: versions
+        run: |
+          installed() { node -p "require('./package-lock.json').packages['node_modules/$1'].version"; }
+          cur_tina=$(installed tinacms)
+          cur_cli=$(installed @tinacms/cli)
+          new_cli=$(npm view @tinacms/cli version)
+          # Die CLI gibt vor, welche tinacms-Version dazugehört (z. B. ^3.14.3). Genau die
+          # installieren wir, sonst landen zwei tinacms-Kopien im Projekt.
+          range=$(npm view "@tinacms/cli@$new_cli" dependencies.tinacms)
+          new_tina=$(npm view "tinacms@$range" version --json | jq -r 'if type == "array" then .[] else . end' | sort -V | tail -n 1)
+          echo "Installiert: tinacms $cur_tina, CLI $cur_cli"
+          echo "Verfügbar:   tinacms $new_tina, CLI $new_cli"
+          if [ "$cur_tina" = "$new_tina" ] && [ "$cur_cli" = "$new_cli" ]; then
+            echo "Alles aktuell – nichts zu tun."
+            echo "update=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "${cur_tina%%.*}" != "${new_tina%%.*}" ]; then
+            echo "::error::tinacms $new_tina ist eine neue Hauptversion (installiert: $cur_tina). Dieses Update bitte von Hand machen."
+            exit 1
+          fi
+          {
+            echo "update=true"
+            echo "cur_tina=$cur_tina"
+            echo "cur_cli=$cur_cli"
+            echo "new_tina=$new_tina"
+            echo "new_cli=$new_cli"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Update installieren
+        if: steps.versions.outputs.update == 'true'
+        env:
+          NEW_TINA: ${{ steps.versions.outputs.new_tina }}
+          NEW_CLI: ${{ steps.versions.outputs.new_cli }}
+        run: |
+          # Ohne vorheriges `npm ci`, damit npm die package-lock.json mit den Paketen für alle
+          # Plattformen schreibt (macOS für die lokale Arbeit, Linux für den Deploy).
+          npm install "tinacms@^$NEW_TINA" "@tinacms/cli@^$NEW_CLI" --no-audit --no-fund
+          copies=$(npm ls tinacms --all --parseable | sort -u | wc -l)
+          if [ "$copies" -ne 1 ]; then
+            npm ls tinacms --all
+            echo "::error::Es sind $copies tinacms-Kopien installiert, erwartet ist genau eine."
+            exit 1
+          fi
+          for platform in darwin-arm64 linux-x64; do
+            grep -q "@esbuild/$platform\"" package-lock.json || { echo "::error::package-lock.json enthält kein esbuild für $platform."; exit 1; }
+          done
+
+      - name: tina-lock.json neu erzeugen
+        if: steps.versions.outputs.update == 'true'
+        run: |
+          # Nur `tinacms dev` schreibt tina-lock.json neu; Tina Cloud indexiert anhand dieser Datei.
+          # Tinas lokaler Server bleibt beim Start gelegentlich hängen – dann neu versuchen.
+          for attempt in 1 2 3; do
+            if timeout --kill-after=10 180 npx tinacms dev --noTelemetry -c "echo tina-lock.json aktualisiert"; then
+              exit 0
+            fi
+            echo "Versuch $attempt hat nicht geklappt, neuer Versuch."
+            pkill -f "tinacms dev" || true
+            sleep 2
+          done
+          exit 1
+
+      - name: Update committen
+        if: steps.versions.outputs.update == 'true'
+        env:
+          MESSAGE: "Auto-Update TinaCMS ${{ steps.versions.outputs.cur_tina }} → ${{ steps.versions.outputs.new_tina }} (CLI ${{ steps.versions.outputs.cur_cli }} → ${{ steps.versions.outputs.new_cli }})"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json tina/
+          git commit -m "$MESSAGE"
+
+      - name: Test – Tina-Admin bauen
+        if: steps.versions.outputs.update == 'true'
+        env:
+          NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}
+          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+          GITHUB_BRANCH: main
+        run: npx tinacms build --skip-cloud-checks --noTelemetry
+
+      - name: Test – Website bauen
+        if: steps.versions.outputs.update == 'true'
+        run: npx @11ty/eleventy
+
+      - name: Pushen und Deploy starten
+        if: steps.versions.outputs.update == 'true' && !inputs.dry_run && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Test-Artefakte verwerfen – gepusht wird nur der Update-Commit.
+          git reset --hard HEAD
+          git clean -fd
+          git pull --rebase origin main
+          git push origin HEAD:main
+          # Pushes mit dem GITHUB_TOKEN starten keine Workflows, deshalb den Deploy direkt anstoßen.
+          started=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          gh workflow run deploy.yml --ref main
+          # Auf den Deploy warten: Ein von dieser Action gestarteter Lauf benachrichtigt niemanden,
+          # deshalb soll ein Fehler dort diesen Lauf rot machen (und damit die E-Mail auslösen).
+          for i in $(seq 1 30); do
+            run_id=$(gh run list --workflow deploy.yml --event workflow_dispatch --limit 5 --json databaseId,createdAt --jq "[.[] | select(.createdAt >= \"$started\")][0].databaseId // empty")
+            [ -n "$run_id" ] && break
+            sleep 5
+          done
+          [ -n "$run_id" ] || { echo "::error::Der Deploy-Lauf wurde nicht gefunden."; exit 1; }
+          gh run watch "$run_id" --interval 15 --exit-status

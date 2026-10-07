@@ -23,16 +23,21 @@ jobs:
         run: npm ci
 
       - name: Build static site (with Tina schema, falls Tina Cloud konfiguriert)
+        id: build
         env:
           NEXT_PUBLIC_TINA_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_TINA_CLIENT_ID }}
           TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         run: |
           # Versuch zuerst Tina-Build (registriert Schema mit Tina Cloud)
-          # Falls Tina Cloud nicht konfiguriert ist, fall back auf reines Eleventy
-          npm run build:with-tina || {
+          # Falls der fehlschlägt, fall back auf reines Eleventy, damit die Website trotzdem live geht.
+          # Der Lauf wird am Ende rot markiert, damit der Fehler nicht untergeht.
+          if npm run build:with-tina; then
+            echo "tina=ok" >> "$GITHUB_OUTPUT"
+          else
             echo "::warning::Tina Cloud build failed — falling back to Eleventy-only build"
+            echo "tina=failed" >> "$GITHUB_OUTPUT"
             npm run build
-          }
+          fi
 
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
@@ -57,3 +62,9 @@ jobs:
               ./_site/ $FTP_REMOTE_DIR;
             bye;
           "
+
+      - name: Report failed Tina build
+        if: steps.build.outputs.tina == 'failed'
+        run: |
+          echo "::error::Der Tina-Build ist fehlgeschlagen. Die Website ist live, aber der Tina-Admin wurde nicht neu gebaut. Details im Schritt 'Build static site'."
+          exit 1
